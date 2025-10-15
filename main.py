@@ -6,10 +6,10 @@ class Customer:
     _totalCustomers = 0
     
     def __init__(self, customerId, firstName, lastName, email, 
-                 phoneNumber=None, shippingAddress=None):
-        self.__customerId = customerId
-        self._firstName = firstName
-        self._lastName = lastName
+                 phoneNumber=None, shippingAddress=None):                   #конструктор
+        self.__customerId = customerId                                      #приватна властивість
+        self._firstName = firstName     
+        self._lastName = lastName                                           #захищені властивості
         self._email = email
         self._phoneNumber = phoneNumber
         self._shippingAddress = shippingAddress
@@ -25,13 +25,13 @@ class Customer:
     def getEmail(self):
         return self._email
     
-    def setEmail(self, value):
+    def setEmail(self, value):                                              
         if "@" in value:
             self._email = value
         else:
             print("Помилка: Невірний формат email")
     
-    def getInfo(self):
+    def getInfo(self):                                                      #метод без параметрів
         phone = self._phoneNumber if self._phoneNumber else "Не вказано"
         address = self._shippingAddress if self._shippingAddress else "Не вказано"
         dateStr = self._registrationDate.strftime('%d.%m.%Y %H:%M')
@@ -43,7 +43,7 @@ class Customer:
         info += f"Зареєстрований: {dateStr}"
         return info
     
-    def updateContactInfo(self, email=None, phone=None, address=None):
+    def updateContactInfo(self, email=None, phone=None, address=None):      #метод з параметрами
         if email:
             self.setEmail(email)
         if phone:
@@ -56,7 +56,7 @@ class Customer:
     def calculateDiscount(self, baseAmount):
         return baseAmount
     
-    @staticmethod
+    @staticmethod                                                            #статичний метод
     def getTotalCustomers():
         return Customer._totalCustomers
     
@@ -90,7 +90,7 @@ class LoyaltyProgram:
         return f"Рівень: {self._loyaltyLevel}, Бали: {self._loyaltyPoints}"
 
 
-class PremiumCustomer(Customer):
+class PremiumCustomer(Customer):                                    #звичайне наслідування
     
     def __init__(self, customerId, firstName, lastName, email, 
                  phoneNumber=None, shippingAddress=None, premiumSince=None):
@@ -118,7 +118,7 @@ class PremiumCustomer(Customer):
         print(f"{self.getFullName()} отримав доступ до пріоритетної підтримки 24/7")
 
 
-class VIPCustomer(Customer, LoyaltyProgram):
+class VIPCustomer(Customer, LoyaltyProgram):                        #множинне наслідування
     
     def __init__(self, customerId, firstName, lastName, email, 
                  phoneNumber=None, shippingAddress=None, personalManager=None):
@@ -168,7 +168,7 @@ def main():
     printSeparator("СИСТЕМА КЕРУВАННЯ КЛІЄНТАМИ")
     
     
-    regularCustomer = Customer(
+    regularCustomer = Customer(                                 #Екземпляр класу Customer
         customerId=1001,
         firstName="Іван",
         lastName="Петренко",
@@ -177,7 +177,7 @@ def main():
         shippingAddress="вул. Шевченка, 10, Львів"
     )
     
-    premiumCustomer = PremiumCustomer(
+    premiumCustomer = PremiumCustomer(                          #Екземпляр класу PremiumCustomer
         customerId=1002,
         firstName="Марія",
         lastName="Коваленко",
@@ -186,7 +186,7 @@ def main():
         shippingAddress="вул. Франка, 25, Київ"
     )
     
-    vipCustomer = VIPCustomer(
+    vipCustomer = VIPCustomer(                                  #Екземпляр класу VIPCustomer
         customerId=1003,
         firstName="Олександр",
         lastName="Шевченко",
@@ -220,7 +220,7 @@ def main():
     
     orderAmount = 5000.0
     
-    processOrder(regularCustomer, orderAmount)
+    processOrder(regularCustomer, orderAmount)                  #Поліморфізм
     processOrder(premiumCustomer, orderAmount)
     processOrder(vipCustomer, orderAmount)
     
