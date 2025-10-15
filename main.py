@@ -52,9 +52,11 @@ class Customer:
             self._shippingAddress = address
         print(f"Контактні дані клієнта {self.getFullName()} оновлено")
     
+
     def calculateDiscount(self, baseAmount):
         return baseAmount
     
+    @staticmethod
     def getTotalCustomers():
         return Customer._totalCustomers
     
